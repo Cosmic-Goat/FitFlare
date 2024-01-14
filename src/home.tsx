@@ -4,20 +4,49 @@ import { FlatList, Text, TouchableOpacity, StyleSheet, StatusBar, View } from "r
 type ItemData = {
     id: string;
     title: string;
+    time: string;
+    cals: number;
 };
 
 const DATA: ItemData[] = [
     {
         id: "1",
         title: 'Cardio',
+        time: "1h 25m",
+        cals: 400,
     },
     {
         id: "2",
         title: 'Flex',
+        time: "1h 9m",
+        cals: 300,
     },
     {
         id: "3",
         title: 'Strength',
+        time: "50m",
+        cals: 250
+    },
+];
+
+const FAV_DATA: ItemData[] = [
+    {
+        id: "1",
+        title: 'Half-Marathon',
+        time: "21m",
+        cals: 60,
+    },
+    {
+        id: "2",
+        title: 'Flex',
+        time: "1h 9m",
+        cals: 300,
+    },
+    {
+        id: "3",
+        title: 'Strength',
+        time: "50m",
+        cals: 250,
     },
 ];
 
@@ -30,11 +59,13 @@ type ItemProps = {
 
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
-        <Text style={[styles.title, { color: textColor }]}>{item.title}</Text>
+        <Text style={{fontSize: 20, color: textColor }}>{item.title}</Text>
+        <Text style={{fontSize: 12, color: textColor }}>{item.time}</Text>
+        <Text style={{fontSize: 12, color: textColor }}>{item.cals} kcal burned</Text>
     </TouchableOpacity>
 );
 
-export default function HomeScreen() {
+const Scroller = ({ title, data }) => {
     const [selectedId, setSelectedId] = useState<string>();
 
     const renderItem = ({ item }: { item: ItemData }) => {
@@ -52,22 +83,35 @@ export default function HomeScreen() {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
-            <Text style={{ fontSize: 15, textAlign: 'left', width: "90%", paddingTop: 20 }}>Hi Maya!</Text>
-            <Text style={{ fontSize: 30, textAlign: 'left', width: "90%" }}>Recent Workouts</Text>
+        <>
+            <Text style={{ fontSize: 30, textAlign: 'left', width: "90%" }}>{title}</Text>
             <FlatList
-                style={{ paddingLeft: 8 }}
-                data={DATA}
+                style={styles.flatlist}
+                data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
                 extraData={selectedId}
                 horizontal={true}
             />
+        </>
+    )
+}
+
+export default function HomeScreen() {
+
+    return (
+        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+            <Text style={{ fontSize: 15, textAlign: 'left', width: "90%", paddingTop: 20 }}>Hi Maya!</Text>
+            <Scroller title="Recent Workouts" data={DATA} />
+            <Scroller title="Favourite Challenges" data={FAV_DATA} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    flatlist: {
+        paddingLeft: 8,
+    },
     container: {
         flex: 1,
         marginTop: StatusBar.currentHeight || 0,
