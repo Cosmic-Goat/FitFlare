@@ -6,6 +6,7 @@ type ItemData = {
     title: string;
     time: string;
     cals: number;
+    challenge: boolean;
 };
 
 const DATA: ItemData[] = [
@@ -13,19 +14,19 @@ const DATA: ItemData[] = [
         id: "1",
         title: 'Cardio',
         time: "1h 25m",
-        cals: 400,
+        cals: 421,
     },
     {
         id: "2",
         title: 'Flex',
         time: "1h 9m",
-        cals: 300,
+        cals: 366,
     },
     {
         id: "3",
         title: 'Strength',
         time: "50m",
-        cals: 250
+        cals: 251
     },
 ];
 
@@ -33,20 +34,23 @@ const FAV_DATA: ItemData[] = [
     {
         id: "1",
         title: 'Half-Marathon',
-        time: "21m",
-        cals: 60,
+        time: "2h",
+        cals: 500,
+        challenge: true,
     },
     {
         id: "2",
-        title: 'Flex',
-        time: "1h 9m",
+        title: 'Yoga Routine',
+        time: "1h",
         cals: 300,
+        challenge: true,
     },
     {
         id: "3",
-        title: 'Strength',
-        time: "50m",
+        title: 'Body Combat',
+        time: "20m",
         cals: 250,
+        challenge: true,
     },
 ];
 
@@ -59,9 +63,9 @@ type ItemProps = {
 
 const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
     <TouchableOpacity onPress={onPress} style={[styles.item, { backgroundColor }]}>
-        <Text style={{fontSize: 20, color: textColor }}>{item.title}</Text>
-        <Text style={{fontSize: 12, color: textColor }}>{item.time}</Text>
-        <Text style={{fontSize: 12, color: textColor }}>{item.cals} kcal burned</Text>
+        <Text style={{ fontSize: 20, color: textColor }}>{item.title}</Text>
+        <Text style={{ fontSize: 12, color: textColor }}>{item.time}</Text>
+        <Text style={{ fontSize: 12, color: textColor }}>{item.cals} kcal {item.challenge ? "" : "burned"}</Text>
     </TouchableOpacity>
 );
 
