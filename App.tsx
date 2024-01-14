@@ -18,11 +18,13 @@ export default function App() {
                         let iconName;
 
                         if (route.name === 'Home') {
-                            iconName = focused
-                                ? 'ios-information-circle'
-                                : 'ios-information-circle-outline';
-                        } else if (route.name === 'Settings') {
-                            iconName = focused ? 'ios-list' : 'ios-list-outline';
+                            iconName = focused ? 'home' : 'home-outline';
+                        } else if (route.name === 'Challenges') {
+                            iconName = focused ? 'checkmark-done-circle' : 'checkmark-done-circle-outline';
+                        } else if (route.name === 'Map') {
+                            iconName = focused ? 'map' : 'map-outline';
+                        } else if (route.name === 'Profile') {
+                            iconName = focused ? 'person-circle' : 'person-circle-outline';
                         }
 
                         // You can return any component that you like here!
